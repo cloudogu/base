@@ -1,7 +1,7 @@
 FROM alpine:3.7
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-ENV DOGUCTL_VERSION 0.3.1
+ENV DOGUCTL_VERSION 0.4.0
 
 # copy resource
 COPY resources/ /
