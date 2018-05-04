@@ -1,6 +1,6 @@
-# dogu base docker image
+# Base Dogu Docker image
 
-## how to build
+## How to Build
 
     docker build -t official/base:<alpine linux version>-<cloudogu revision> .
 
@@ -13,8 +13,11 @@ NOTE: _alpine linux version_ see FROM statement in Dockerfile
 
 NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the first line in Dockerfile
 
+## Why is there a branch called alpine3.5?
 
-## additional packages for base not included in alpine repository
+Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Alpine 3.5 must be maintained as well as one with a more recent Alpine (currently Alpine 3.7)
+
+## Additional packages for base not included in alpine repository
 
 ### doguctl
 
