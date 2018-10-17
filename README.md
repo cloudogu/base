@@ -1,3 +1,6 @@
+[![GitHub license](https://img.shields.io/github/license/cloudogu/base.svg)](https://github.com/cloudogu/base/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/cloudogu/base.svg)](https://github.com/cloudogu/base/releases)
+
 # Base Dogu Docker image
 
 ## How to Build
