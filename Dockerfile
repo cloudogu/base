@@ -1,5 +1,5 @@
-FROM alpine:3.7
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
+FROM alpine:3.9.4
+LABEL maintainer="sebastian.sdorra@cloudogu.com"
 
 ENV DOGUCTL_VERSION 0.4.0
 
