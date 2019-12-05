@@ -18,7 +18,7 @@ NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the 
 
 ## Why is there a branch called alpine3.5?
 
-Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Alpine 3.5 must be maintained as well as one with a more recent Alpine (currently Alpine 3.9.4)
+Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Alpine 3.5 must be maintained as well as one with a more recent Alpine (currently Alpine 3.10.3)
 
 ## Additional packages for base not included in alpine repository
 
