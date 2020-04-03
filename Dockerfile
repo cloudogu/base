@@ -1,4 +1,4 @@
-FROM alpine:3.10.3
+FROM alpine:3.11.5
 LABEL maintainer="sebastian.sdorra@cloudogu.com"
 
 ENV DOGUCTL_VERSION 0.5.0
