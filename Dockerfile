@@ -1,7 +1,7 @@
-FROM alpine:3.11.5
+FROM alpine:3.11.6
 LABEL maintainer="sebastian.sdorra@cloudogu.com"
 
-ENV DOGUCTL_VERSION 0.5.0
+ENV DOGUCTL_VERSION 0.6.0
 
 # copy resource
 COPY resources/ /
