@@ -5,11 +5,7 @@
 
 ## How to Build
 
-    docker build -t official/base:<alpine linux version>-<cloudogu revision> .
-
-example
-
-    docker build -t official/base:3.6-1 .
+    make build
 
 
 NOTE: _alpine linux version_ see FROM statement in Dockerfile
