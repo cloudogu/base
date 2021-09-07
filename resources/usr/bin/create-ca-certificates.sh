@@ -30,7 +30,7 @@ function run_main() {
 }
 
 function createAdditionalCertificates() {
-  additionalCertificatesFile="${1}"
+  local additionalCertificatesFile="${1}"
 
   if [[ ! existAdditionalCertificates ]]; then
     return
@@ -39,10 +39,11 @@ function createAdditionalCertificates() {
   local additionalCertTOC
   additionalCertTOC="$(doguctl config --global "${ADDITIONAL_CERTIFICATES_TOC}")"
 
-  for certAlias in "${additionalCertTOC}" ; do
+  # note the deliberate leaving out of surrounding quotes because space is supposed to be the delimiter within the TOC
+  for certAlias in ${additionalCertTOC} ; do
     local cert
     cert="$(doguctl config --global "${ADDITIONAL_CERTIFICATES_DIR_KEY}/${certAlias}")"
-    echo cert >> additionalCertificatesFile
+    echo "${cert}" >> "${additionalCertificatesFile}"
   done
 }
 
@@ -54,7 +55,6 @@ function existAdditionalCertificates() {
     return 1
   fi
 
-  echo huhu
   return 0
 }
 

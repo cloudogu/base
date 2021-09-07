@@ -53,19 +53,21 @@ teardown() {
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
 }
 
-
-@test "createAdditionalCertificates() should cat etcd values into a given file" {
+@test "createAdditionalCertificates() should concat etcd values into a given file" {
   mock_set_status "${doguctl}" 0
-  mock_set_output "${doguctl}" "alias1 alias2\n"
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n"
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n"
+  mock_set_output "${doguctl}" "alias1 alias2\n" 1
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 2
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 3
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
   run createAdditionalCertificates "${tempCertFile}"
 
   assert_exist "${tempCertFile}"
+  cat "${tempCertFile}"
   assert_file_not_empty "${tempCertFile}"
+  assert_file_contains "${tempCertFile}" "CERT FOR CONTENT1"
+  assert_file_contains "${tempCertFile}" "CERT FOR CONTENT2"
   assert_equal "$(mock_get_call_num "${doguctl}")" "3"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/alias1"
