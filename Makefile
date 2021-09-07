@@ -14,6 +14,7 @@ BASH_TEST_REPORTS=$(BASH_TEST_REPORT_DIR)/TestReport-*.xml
 BATS_ASSERT=$(BATS_LIBRARY_DIR)/bats-assert
 BATS_MOCK=$(BATS_LIBRARY_DIR)/bats-mock
 BATS_SUPPORT=$(BATS_LIBRARY_DIR)/bats-support
+BATS_FILE=$(BATS_LIBRARY_DIR)/bats-file
 BATS_BASE_IMAGE?=bats/bats
 BATS_CUSTOM_IMAGE?=cloudogu/bats
 BATS_TAG?=1.2.1
@@ -54,17 +55,20 @@ $(BATS_MOCK):
 $(BATS_SUPPORT):
 	@git clone --depth 1 https://github.com/bats-core/bats-support $@
 
+$(BATS_FILE):
+	@git clone --depth 1 https://github.com/bats-core/bats-file $@
+
 $(BASH_SRC):
 	BASH_SRC:=$(shell find "${WORKDIR}" -type f -name "*.sh")
 
 ${BASH_TEST_REPORT_DIR}: $(TARGET_DIR)
 	@mkdir -p $(BASH_TEST_REPORT_DIR)
 
-unit-test-shell-ci: $(BASH_SRC) $(BASH_TEST_REPORT_DIR) $(BATS_ASSERT) $(BATS_MOCK) $(BATS_SUPPORT)
+unit-test-shell-ci: $(BASH_SRC) $(BASH_TEST_REPORT_DIR) $(BATS_ASSERT) $(BATS_MOCK) $(BATS_SUPPORT) $(BATS_FILE)
 	@echo "Test shell units on CI server"
 	@make unit-test-shell-generic
 
-unit-test-shell-local: $(BASH_SRC) $(PASSWD) $(ETCGROUP) $(HOME_DIR) buildTestImage $(BASH_TEST_REPORT_DIR) $(BATS_ASSERT) $(BATS_MOCK) $(BATS_SUPPORT)
+unit-test-shell-local: $(BASH_SRC) $(PASSWD) $(ETCGROUP) $(HOME_DIR) buildTestImage $(BASH_TEST_REPORT_DIR) $(BATS_ASSERT) $(BATS_MOCK) $(BATS_SUPPORT) $(BATS_FILE)
 	@echo "Test shell units locally (in Docker)"
 	@docker run --rm \
 		-v $(HOME_DIR):/home/$(USER) \

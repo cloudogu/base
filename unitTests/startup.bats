@@ -2,9 +2,11 @@
 # Bind an unbound BATS variable that fails all tests when combined with 'set -o nounset'
 export BATS_TEST_START_TIME="0"
 
+
 load '/workspace/target/bats_libs/bats-support/load.bash'
 load '/workspace/target/bats_libs/bats-assert/load.bash'
 load '/workspace/target/bats_libs/bats-mock/load.bash'
+load '/workspace/target/bats_libs/bats-file/load.bash'
 
 setup() {
   export STARTUP_DIR=/workspace/
@@ -14,10 +16,15 @@ setup() {
   export doguctl
   export PATH="${PATH}:${BATS_TMPDIR}"
   ln -s "${doguctl}" "${BATS_TMPDIR}/doguctl"
+  tempCertFile="$(mktemp)"
+  export tempCertFile
+  BATSLIB_FILE_PATH_REM="#${TEST_TEMP_DIR}"
+  BATSLIB_FILE_PATH_ADD='<temp>'
 }
 
 teardown() {
   rm "${BATS_TMPDIR}/doguctl"
+  rm "${tempCertFile}"
 }
 
 @test "existAdditionalCertificates() should return false for unset etcd key" {
@@ -44,5 +51,24 @@ teardown() {
   assert_success
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
+}
+
+
+@test "createAdditionalCertificates() should cat etcd values into a given file" {
+  mock_set_status "${doguctl}" 0
+  mock_set_output "${doguctl}" "alias1 alias2\n"
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n"
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n"
+
+  source /workspace/resources/usr/bin/create-ca-certificates.sh
+
+  run createAdditionalCertificates "${tempCertFile}"
+
+  assert_exist "${tempCertFile}"
+  assert_file_not_empty "${tempCertFile}"
+  assert_equal "$(mock_get_call_num "${doguctl}")" "3"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/alias1"
+  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias2"
 }
 
