@@ -64,5 +64,5 @@ function addAdditionalCertificatesToFile() {
 
 # make the script only run when executed, not when sourced from bats tests)
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  run_main
+  run_main "$@"
 fi
