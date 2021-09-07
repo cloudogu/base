@@ -5,6 +5,7 @@ set -o pipefail
 
 ADDITIONAL_CERTIFICATES_DIR_KEY="certificate/additional"
 ADDITIONAL_CERTIFICATES_TOC="${ADDITIONAL_CERTIFICATES_DIR_KEY}/toc"
+DEFAULT_ROOT_CERTIFICATES=/etc/ssl/certs/ca-certificates.crt
 
 function run_main() {
   DIRECTORY="/etc/ssl"
@@ -22,7 +23,7 @@ function run_main() {
 
   createAdditionalCertificates "${additionalCertificatesFile}"
 
-  cat /etc/ssl/certs/ca-certificates.crt "${CERTIFICATE}" "${ADDITIONAL_CERTIFICATES}" > "${STORE}"
+  cat "${DEFAULT_ROOT_CERTIFICATES}" "${CERTIFICATE}" "${additionalCertificatesFile}" > "${STORE}"
 
   # cleanup temp files
   rm -f "${CERTIFICATE}"
