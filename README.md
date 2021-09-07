@@ -12,9 +12,11 @@ NOTE: _alpine linux version_ see FROM statement in Dockerfile
 
 NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the first line in Dockerfile
 
+More detailed instructions about building the base image can be found in [container_building.en.md](docs/container_building.en.md). 
+
 ## Why is there a branch called alpine3.5?
 
-Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Alpine 3.5 must be maintained as well as one with a more recent Alpine (currently Alpine 3.10.3)
+Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Alpine 3.5 must be maintained as well as one with a more recent Alpine.
 
 ## Additional packages for base not included in alpine repository
 
