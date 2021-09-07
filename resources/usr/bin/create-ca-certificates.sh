@@ -1,12 +1,16 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
-DIRECTORY="/etc/ssl"
-STORE="${1:-$DIRECTORY/ca-certificates.crt}"
+function run_main() {
+  DIRECTORY="/etc/ssl"
+  STORE="${1:-$DIRECTORY/ca-certificates.crt}"
 
-# create ssl directory
-if [ ! -d "$DIRECTORY" ]; then
-  mkdir "$DIRECTORY"
-fi
+  # create ssl directory
+  if [ ! -d "$DIRECTORY" ]; then
+    mkdir "$DIRECTORY"
+  fi
 
 CERTIFICATE="$(mktemp)"
 doguctl config --global certificate/server.crt > "${CERTIFICATE}"
