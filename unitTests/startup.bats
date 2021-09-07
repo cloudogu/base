@@ -29,7 +29,7 @@ teardown() {
 
 @test "existAdditionalCertificates() should return false for unset etcd key" {
   mock_set_status "${doguctl}" 0
-  mock_set_output "${doguctl}" "\n"
+  mock_set_output "${doguctl}" "\n" 1
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
@@ -37,12 +37,12 @@ teardown() {
 
   assert_failure
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
 }
 
 @test "existAdditionalCertificates() should return true for set etcd key" {
   mock_set_status "${doguctl}" 0
-  mock_set_output "${doguctl}" "alias1 alias2\n"
+  mock_set_output "${doguctl}" "alias1 alias2\n" 1
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
@@ -50,35 +50,52 @@ teardown() {
 
   assert_success
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
 }
 
 @test "createAdditionalCertificates() should concat etcd values into a given file" {
   mock_set_status "${doguctl}" 0
   mock_set_output "${doguctl}" "alias1 alias2\n" 1
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 2
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 3
+  mock_set_output "${doguctl}" "alias1 alias2\n" 2
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 3
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 4
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
   run createAdditionalCertificates "${tempCertFile}"
 
+  assert_line "Adding additional certificates from global config..."
   assert_exist "${tempCertFile}"
   assert_file_not_empty "${tempCertFile}"
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT1"
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT2"
-  assert_equal "$(mock_get_call_num "${doguctl}")" "3"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/additional/toc"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/alias1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias2"
+  assert_equal "$(mock_get_call_num "${doguctl}")" "4"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias1"
+  assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias2"
+}
+
+@test "createAdditionalCertificates() should not concat etcd values into a given file" {
+  mock_set_status "${doguctl}" 0
+  mock_set_output "${doguctl}" ""
+
+  source /workspace/resources/usr/bin/create-ca-certificates.sh
+
+  run createAdditionalCertificates "${tempCertFile}"
+
+  assert_file_empty "${tempCertFile}"
+  assert_equal "$(mock_get_call_num "${doguctl}")" "1"
+  assert_equal "$(mock_get_call_args "${doguctl}" "0")" "config --default  --global certificate/additional/toc"
 }
 
 @test "run_main() should create custom certificate store from base and additional certificates" {
   mock_set_status "${doguctl}" 0
   mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nHELLO BASE CERTIFICATE\n-----END CERTIFICATE-----\n" 1
   mock_set_output "${doguctl}" "alias1 alias2\n" 2
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 3
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 4
+  mock_set_output "${doguctl}" "alias1 alias2\n" 3
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 4
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 5
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
   export DEFAULT_ROOT_CERTIFICATES=/workspace/unitTests/etc/ssl/ca-certificates.crt
@@ -91,19 +108,21 @@ teardown() {
   assert_file_contains "${tempCertFile}" "HELLO BASE CERTIFICATE"
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT1"
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT2"
-  assert_equal "$(mock_get_call_num "${doguctl}")" "4"
+  assert_equal "$(mock_get_call_num "${doguctl}")" "5"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
-  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias2"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias1"
+  assert_equal "$(mock_get_call_args "${doguctl}" "5")" "config --global certificate/additional/alias2"
 }
 
 @test "run_main() should create default certificate store from root, base, and additional certificates" {
   mock_set_status "${doguctl}" 0
   mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nHELLO BASE CERTIFICATE\n-----END CERTIFICATE-----\n" 1
   mock_set_output "${doguctl}" "alias1 alias2\n" 2
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 3
-  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 4
+  mock_set_output "${doguctl}" "alias1 alias2\n" 3
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT1\n-----END CERTIFICATE-----\n" 4
+  mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nCERT FOR CONTENT2\n-----END CERTIFICATE-----\n" 5
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
@@ -122,17 +141,18 @@ teardown() {
   assert_file_contains "/etc/ssl/ca-certificates.crt" "HELLO BASE CERTIFICATE"
   assert_file_contains "/etc/ssl/ca-certificates.crt" "CERT FOR CONTENT1"
   assert_file_contains "/etc/ssl/ca-certificates.crt" "CERT FOR CONTENT2"
-  assert_equal "$(mock_get_call_num "${doguctl}")" "4"
+  assert_equal "$(mock_get_call_num "${doguctl}")" "5"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
-  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias2"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias1"
+  assert_equal "$(mock_get_call_args "${doguctl}" "5")" "config --global certificate/additional/alias2"
 }
 
 @test "run_main() should create default certificate store from root, base but without additional certificates" {
   mock_set_status "${doguctl}" 0
   mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nHELLO BASE CERTIFICATE\n-----END CERTIFICATE-----\n" 1
-  mock_set_output "${doguctl}" "\n" 2
+  mock_set_output "${doguctl}" "" 2
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
@@ -151,13 +171,13 @@ teardown() {
   assert_file_contains "/etc/ssl/ca-certificates.crt" "HELLO BASE CERTIFICATE"
   assert_equal "$(mock_get_call_num "${doguctl}")" "2"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
 }
 
 @test "run_main() should create custom certificate store from root, base but without additional certificates" {
   mock_set_status "${doguctl}" 0
   mock_set_output "${doguctl}" "-----BEGIN CERTIFICATE-----\nHELLO BASE CERTIFICATE\n-----END CERTIFICATE-----\n" 1
-  mock_set_output "${doguctl}" "\n" 2
+  mock_set_output "${doguctl}" "" 2
 
   source /workspace/resources/usr/bin/create-ca-certificates.sh
 
@@ -179,5 +199,5 @@ teardown() {
   assert_file_contains "${tempCertFile}" "HELLO BASE CERTIFICATE"
   assert_equal "$(mock_get_call_num "${doguctl}")" "2"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
 }

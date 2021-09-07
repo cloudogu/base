@@ -33,14 +33,16 @@ function run_main() {
 function createAdditionalCertificates() {
   local additionalCertificatesFile="${1}"
 
-  if [[ ! existAdditionalCertificates ]]; then
-    return
+  if ! existAdditionalCertificates ; then
+    return 0
   fi
 
+  echo "Adding additional certificates from global config..."
   local additionalCertTOC
   additionalCertTOC="$(doguctl config --global "${ADDITIONAL_CERTIFICATES_TOC}")"
 
-  # note the deliberate leaving out of surrounding quotes because space is supposed to be the delimiter within the TOC
+  # note the deliberate leaving out of surrounding quotes because space is supposed to be the delimiter within the
+  # Table of Content entries.
   for certAlias in ${additionalCertTOC} ; do
     local cert
     cert="$(doguctl config --global "${ADDITIONAL_CERTIFICATES_DIR_KEY}/${certAlias}")"
@@ -49,14 +51,14 @@ function createAdditionalCertificates() {
 }
 
 function existAdditionalCertificates() {
-  additionalCertTOC="$(doguctl config --global "${ADDITIONAL_CERTIFICATES_TOC}")"
+  additionalCertTOC="$(doguctl config  --default "" --global "${ADDITIONAL_CERTIFICATES_TOC}")"
 
   # test empty string pattern substitution, see https://unix.stackexchange.com/a/146945/440116
   if [[ -z "${additionalCertTOC// }" ]] ; then
     return 1
+  else
+    return 0
   fi
-
-  return 0
 }
 
 # make the script only run when executed, not when sourced from bats tests)
