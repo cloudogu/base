@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add support for additional certificates (#2)
+   - see the [operations docs](docs/operations.en.md) for more information
+
 ### Changed
-- verify `doguctl` binary
-- Updates Alpine packages
+- Verify `doguctl` binary during image building
+- Update Alpine packages
 
 ## [3.14.2-1]
 
