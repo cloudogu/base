@@ -37,7 +37,7 @@ teardown() {
 
   assert_failure
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default NV --global certificate/additional/toc"
 }
 
 @test "existAdditionalCertificates() should return true for set etcd key" {
@@ -50,7 +50,7 @@ teardown() {
 
   assert_success
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default NV --global certificate/additional/toc"
 }
 
 @test "createAdditionalCertificates() should concat etcd values into a given file" {
@@ -70,7 +70,7 @@ teardown() {
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT1"
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT2"
   assert_equal "$(mock_get_call_num "${doguctl}")" "4"
-  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --default NV --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/alias1"
   assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias2"
@@ -86,7 +86,7 @@ teardown() {
 
   assert_file_empty "${tempCertFile}"
   assert_equal "$(mock_get_call_num "${doguctl}")" "1"
-  assert_equal "$(mock_get_call_args "${doguctl}" "0")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "0")" "config --default NV --global certificate/additional/toc"
 }
 
 @test "run_main() should create custom certificate store from base and additional certificates" {
@@ -110,7 +110,7 @@ teardown() {
   assert_file_contains "${tempCertFile}" "CERT FOR CONTENT2"
   assert_equal "$(mock_get_call_num "${doguctl}")" "5"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default NV --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias1"
   assert_equal "$(mock_get_call_args "${doguctl}" "5")" "config --global certificate/additional/alias2"
@@ -143,7 +143,7 @@ teardown() {
   assert_file_contains "/etc/ssl/ca-certificates.crt" "CERT FOR CONTENT2"
   assert_equal "$(mock_get_call_num "${doguctl}")" "5"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default NV --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "3")" "config --global certificate/additional/toc"
   assert_equal "$(mock_get_call_args "${doguctl}" "4")" "config --global certificate/additional/alias1"
   assert_equal "$(mock_get_call_args "${doguctl}" "5")" "config --global certificate/additional/alias2"
@@ -171,7 +171,7 @@ teardown() {
   assert_file_contains "/etc/ssl/ca-certificates.crt" "HELLO BASE CERTIFICATE"
   assert_equal "$(mock_get_call_num "${doguctl}")" "2"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default NV --global certificate/additional/toc"
 }
 
 @test "run_main() should create custom certificate store from root, base but without additional certificates" {
@@ -199,5 +199,5 @@ teardown() {
   assert_file_contains "${tempCertFile}" "HELLO BASE CERTIFICATE"
   assert_equal "$(mock_get_call_num "${doguctl}")" "2"
   assert_equal "$(mock_get_call_args "${doguctl}" "1")" "config --global certificate/server.crt"
-  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default  --global certificate/additional/toc"
+  assert_equal "$(mock_get_call_args "${doguctl}" "2")" "config --default NV --global certificate/additional/toc"
 }

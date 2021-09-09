@@ -51,10 +51,10 @@ function createAdditionalCertificates() {
 }
 
 function existAdditionalCertificates() {
-  additionalCertTOC="$(doguctl config  --default "" --global "${ADDITIONAL_CERTIFICATES_TOC}")"
+  additionalCertTOC="$(doguctl config --default 'NV' --global "${ADDITIONAL_CERTIFICATES_TOC}")"
 
   # test empty string pattern substitution, see https://unix.stackexchange.com/a/146945/440116
-  if [[ -z "${additionalCertTOC// }" ]] ; then
+  if [[ -z "${additionalCertTOC// }" ]] || [[ "${additionalCertTOC}" == "NV" ]]; then
     return 1
   else
     return 0
