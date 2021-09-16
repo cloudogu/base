@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Add support for additional certificates (#2)
-   - see the [operations docs](docs/operations.en.md) for more information
+   - see the [operations docs](docs/operations_en.md) for more information
 
 ### Changed
 - Verify `doguctl` binary during image building

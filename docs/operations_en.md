@@ -9,7 +9,7 @@ Additional certificates can be addressed using two `etcd` keys:
 - `/config/_global/certificate/additional/$alias`
    - these keys contain the desired certificates
    - if this certificate is to be addressed, the key name must appear in the above table of contents
-   - these keys must wrap line breaks with `\n
+   - these keys must wrap line breaks with `\n`
 
 Example configuration in `etcd`:
 

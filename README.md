@@ -12,7 +12,7 @@ NOTE: _alpine linux version_ see FROM statement in Dockerfile
 
 NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the first line in Dockerfile
 
-More detailed instructions about building the base image can be found in [container_building.en.md](docs/container_building.en.md). 
+More detailed instructions about building the base image can be found in [container_building.en.md](docs/container_building_en.md). 
 
 ## Why is there a branch called alpine3.5?
 
