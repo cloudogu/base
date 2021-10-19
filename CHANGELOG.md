@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.14.2-2]
+## [3.14.2-3] - 2021-10-19
 
+This is just a technical re-release, no changes
+
+## [3.14.2-2] - 2021-09-16
 ### Added
 - Add support for additional certificates (#2)
    - see the [operations docs](docs/operations_en.md) for more information
@@ -17,45 +20,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Alpine packages
 
 ## [3.14.2-1]
-
 ### Changed
 - update base image to Alpine 3.14.2
 
 ## [3.11.6-3]
-
 ## Changed
 - Nominal dogu change counter changed for reasons of external side effects
 - Updates Alpine packages
 
 ## [3.11.6-2]
-
 ### Changed
 - Updates `doguctl` to v0.7.0
 - Updates Alpine packages
 
 ## [3.11.6-1]
-
 ### Changed
 - Updates Alpine base to 3.11.6 and all used packages
 - Updates `doguctl` to v0.6.0
 
 ## [3.11.5-1]
-
 ### Changed
 - Updates Alpine base to 3.11.5 and all used packages
 
 ## [3.10.3-2]
-
 ### Changed
 - Updates `doguctl` to v0.5.0
 - Updates Alpine packages
 
 ## [3.10.3-1]
-
 ### Changed3.10.3
 - Updates Alpine base to 3.10.3 and all used packages
 
 ## [3.9.4-1]
-
 ### Changed
 - Updates Alpine base to 3.9.4 and all used packages
