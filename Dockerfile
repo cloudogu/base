@@ -1,5 +1,5 @@
 FROM alpine:3.12.4
-LABEL maintainer="sebastian.sdorra@cloudogu.com"
+LABEL maintainer="hello@cloudogu.com"
 
 ENV DOGUCTL_VERSION 0.7.0
 
