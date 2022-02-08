@@ -25,4 +25,5 @@ ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
 
 # install dependencies
 RUN apk update && apk upgrade
-RUN apk add --no-cache bash curl openssl wget tar zip unzip ca-certificates jq
+RUN apk add --allow-untrusted /musl-1.1.24-r10.apk /ncurses-terminfo-base-6.2_p20200523-r1.apk /ncurses-libs-6.2_p20200523-r1.apk /readline-8.0.4-r0.apk /zlib-1.2.11-r3.apk /libssl1.1-1.1.1l-r0.apk /libcrypto1.1-1.1.1l-r0.apk /apk-tools-2.10.8-r0.apk /bash-5.0.17-r0.apk
+RUN apk add --no-cache curl openssl wget tar zip unzip ca-certificates jq
