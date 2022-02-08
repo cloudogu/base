@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.14.0-1] - 2022-02-08
+### Changed
+- Set alpine version to 3.14.0 (#4)
+
 ## [3.14.3-1] - 2022-02-04
 ### Changed
 - Upgrade to alpine 3.14.3
