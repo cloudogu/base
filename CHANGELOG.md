@@ -5,14 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.15.3-1]
 ### Changed
 - Upgrade to alpine 3.15.3 (#9)
 
-## [3.15.2] - 2022-03-29
+## [3.15.2-1] - 2022-03-29
 ### Changed
 - Upgrade to alpine 3.15.2 (#7)
 
-## [3.15.0] - 2022-02-08
+## [3.15.0-1] - 2022-02-08
 ### Changed
 - Upgrade to alpine 3.15.0
 
