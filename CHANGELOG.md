@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.18.3-1] - 2023-04-21
+## [3.18.3-1] - 2023-09-20
 ### Changed
 - Upgrade to alpine 3.18.3 (#19)
 
