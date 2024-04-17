@@ -1,8 +1,8 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
 ARG doguctl_version=0.7.0
 
-ARG ALPINE_VER=3.18.3
-ARG ALPINE_VER_SHA=c5c5fda71656f28e49ac9c5416b3643eaa6a108a8093151d6d1afc9463be8e33
+ARG ALPINE_VER=3.18.6
+ARG ALPINE_VER_SHA=695ae78b4957fef4e53adc51febd07f5401eb36fcd80fff3e5107a2b4aa42ace
 
 FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} as doguctlBinaryVerifier
 ARG doguctl_version
