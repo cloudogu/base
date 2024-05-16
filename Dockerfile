@@ -1,8 +1,8 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
 ARG doguctl_version=0.7.0
 
-ARG ALPINE_VER=3.18.6
-ARG ALPINE_VER_SHA=695ae78b4957fef4e53adc51febd07f5401eb36fcd80fff3e5107a2b4aa42ace
+ARG ALPINE_VER=3.19.1
+ARG ALPINE_VER_SHA=6457d53fb065d6f250e1504b9bc42d5b6c65941d57532c072d929dd0628977d0
 
 FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} as doguctlBinaryVerifier
 ARG doguctl_version
@@ -27,5 +27,6 @@ COPY resources/ /
 ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
 
 # install dependencies
+
 RUN apk update && apk upgrade
 RUN apk add --no-cache bash openssl tar zip unzip ca-certificates jq
