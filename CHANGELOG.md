@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.19.1-2] - 2024-06-06
+### Changed
+- [#25] Update doguctl to v0.10.0
+
 ## [3.19.1-1] - 2024-05-16
 ### Changed
 - Upgrade to alpine 3.19.1 (#23)
