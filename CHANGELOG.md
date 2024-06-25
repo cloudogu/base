@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.18.7-1] - 2024-06-06
 ### Changed
-- [#25] Update doguctl to v0.11.0
+- Update doguctl to v0.11.0
 
 ## [3.19.1-2] - 2024-06-06
 ### Changed
