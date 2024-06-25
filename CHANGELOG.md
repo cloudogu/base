@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.18.7-1] - 2024-06-06
+## [3.18.7-1] - 2024-06-25
 ### Changed
 - Update doguctl to v0.11.0
 
