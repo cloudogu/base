@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- [#30] Update doguctl to v0.11.0
+
+### Security
+- this release closes the following CVEs
+   - CVE-2024-24788
+   - CVE-2024-24789
+   - CVE-2024-24790
 
 ## [3.19.2-1] - 2024-06-25
 ### Changed
