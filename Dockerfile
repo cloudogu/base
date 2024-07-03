@@ -1,18 +1,21 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
-ARG doguctl_version=0.7.0
+ARG doguctl_version=0.12.0
 
-FROM alpine:3.15.8 as doguctlBinaryVerifier
+ARG ALPINE_VER=3.15.11
+ARG ALPINE_VER_SHA=19b4bcc4f60e99dd5ebdca0cbce22c503bbcff197549d7e19dab4f22254dc864
+
+FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} as doguctlBinaryVerifier
 ARG doguctl_version
 
-ENV DOGUCTL_SHA256=4c38d308c2fe3f8eb2b44c075af7038c2d0dc1c4a5dfcd5d75393de2d1f06c0c
+ENV DOGUCTL_SHA256=3101d6a96916f10fd449bd57b7307415e9af94921e08dcfba299ae379f81b64c
 ENV DOGUCTL_VERSION=$doguctl_version
 RUN mkdir packages
 COPY packages/doguctl-$DOGUCTL_VERSION.tar.gz /packages
 RUN sha256sum "/packages/doguctl-${DOGUCTL_VERSION}.tar.gz"
-RUN set +x && echo "4c38d308c2fe3f8eb2b44c075af7038c2d0dc1c4a5dfcd5d75393de2d1f06c0c */packages/doguctl-${DOGUCTL_VERSION}.tar.gz" | sha256sum -c
+RUN set +x && echo "${DOGUCTL_SHA256} */packages/doguctl-${DOGUCTL_VERSION}.tar.gz" | sha256sum -c
 
 
-FROM alpine:3.15.8
+FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA}
 ARG doguctl_version
 LABEL maintainer="hello@cloudogu.com"
 
@@ -24,5 +27,6 @@ COPY resources/ /
 ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
 
 # install dependencies
+
 RUN apk update && apk upgrade
 RUN apk add --no-cache bash openssl tar zip unzip ca-certificates jq

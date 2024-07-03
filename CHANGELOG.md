@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- [#38] Update doguctl to v0.12.0
+
+### Security
+- this release closes the following CVEs
+  - doguctl
+     - CVE-2024-24788
+     - CVE-2024-24789
+     - CVE-2024-24790
+  - diverse openssl CVEs
+
 ## [3.15.8] - 2023-04-21
 ### Changed
 - Upgrade to alpine 3.15.8 (#16)
