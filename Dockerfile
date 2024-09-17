@@ -1,13 +1,13 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
-ARG doguctl_version=0.12.1
+ARG doguctl_version=0.12.2
 
-ARG ALPINE_VER=3.19.2
-ARG ALPINE_VER_SHA=95c16745f100f44cf9a0939fd3f357905f845f8b6fa7d0cde0e88c9764060185
+ARG ALPINE_VER=3.19.4
+ARG ALPINE_VER_SHA=ae65dbf8749a7d4527648ccee1fa3deb6bfcae34cbc30fc67aa45c44dcaa90ee
 
 FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} as doguctlBinaryVerifier
 ARG doguctl_version
 
-ENV DOGUCTL_SHA256=5f4d596d9d5efe9691043a9763c7eb8f3a4fd054029a6ff3a219410187fdbd5e
+ENV DOGUCTL_SHA256=ac4b56f17a8b86ae398b45f33ba0c11bf4e2b80030d915d5b89207582f3ff648
 ENV DOGUCTL_VERSION=$doguctl_version
 RUN mkdir packages
 COPY packages/doguctl-$DOGUCTL_VERSION.tar.gz /packages
