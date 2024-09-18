@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.20.3-2]
+### Changed
+- [#50] Relicense to AGPL-3.0-only
+
 ## [3.20.3-1]
 ### Changed
 - [#48] Upgrade alpine to v3.20.3
