@@ -1,5 +1,5 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
-ARG doguctl_version=0.12.2
+ARG doguctl_version=0.13.0
 
 ARG ALPINE_VER=3.20.3
 ARG ALPINE_VER_SHA=33735bd63cf84d7e388d9f6d297d348c523c044410f553bd878c6d7829612735
@@ -7,7 +7,7 @@ ARG ALPINE_VER_SHA=33735bd63cf84d7e388d9f6d297d348c523c044410f553bd878c6d7829612
 FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} AS doguctl_binary_verifier
 ARG doguctl_version
 
-ENV DOGUCTL_SHA256=ac4b56f17a8b86ae398b45f33ba0c11bf4e2b80030d915d5b89207582f3ff648
+ENV DOGUCTL_SHA256=f38042eb7b1ededddf6658ad29894aa6302542142e1821e4cc34c02d8ac54847
 ENV DOGUCTL_VERSION=$doguctl_version
 RUN mkdir packages
 COPY packages/doguctl-$DOGUCTL_VERSION.tar.gz /packages
