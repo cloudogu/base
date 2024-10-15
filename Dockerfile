@@ -1,32 +1,31 @@
 # keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
-ARG doguctl_version=0.13.0
 
 ARG ALPINE_VER=3.20.3
-ARG ALPINE_VER_SHA=33735bd63cf84d7e388d9f6d297d348c523c044410f553bd878c6d7829612735
+ARG ALPINE_VER_SHA=beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
+ARG DOGUCTL_VERSION=0.13.0
+ARG DOGUCTL_SHA256SUM=f38042eb7b1ededddf6658ad29894aa6302542142e1821e4cc34c02d8ac54847
 
-FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} AS doguctl_binary_verifier
-ARG doguctl_version
+FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} AS doguctl-provider
 
-ENV DOGUCTL_SHA256=f38042eb7b1ededddf6658ad29894aa6302542142e1821e4cc34c02d8ac54847
-ENV DOGUCTL_VERSION=$doguctl_version
-RUN mkdir packages
-COPY packages/doguctl-$DOGUCTL_VERSION.tar.gz /packages
-RUN sha256sum "/packages/doguctl-${DOGUCTL_VERSION}.tar.gz"
-RUN set +x && echo "${DOGUCTL_SHA256} */packages/doguctl-${DOGUCTL_VERSION}.tar.gz" | sha256sum -c
+ARG DOGUCTL_VERSION
+ARG DOGUCTL_SHA256SUM
 
+COPY packages/doguctl-${DOGUCTL_VERSION}.tar.gz /doguctl.tar.gz
+
+RUN \
+  echo "$DOGUCTL_SHA256SUM /doguctl.tar.gz" | sha256sum -c - && \
+  tar -xzf /doguctl.tar.gz && \
+  rm /doguctl.tar.gz
 
 FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA}
-ARG doguctl_version
-LABEL maintainer="hello@cloudogu.com"
 
-ENV DOGUCTL_VERSION=${doguctl_version}
+LABEL maintainer="hello@cloudogu.com"
 
 COPY resources/ /
 
-# unpack and install doguctl
-ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
+# copy doguctl binary
+COPY --from=doguctl-provider /doguctl /usr/bin/
 
 # install dependencies
-
 RUN apk update && apk upgrade
 RUN apk add --no-cache bash openssl tar zip unzip ca-certificates jq
