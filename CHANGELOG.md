@@ -3,24 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-### Unreleased
+
+## Unreleased
+
+## [3.21.0-1] - 2024-12-27
+### Security
 - [#58] Update doguctl to version 0.13.1
   - Fixes CVE-2024-45337
 
-## [3.20.3-3]
+## [3.20.3-3] - 2024-10-15
 ### Changed
 - [#56] Update doguctl to version 0.13.0
 
-## [3.20.3-2]
+## [3.20.3-2] - 2024-09-18
 ### Changed
 - [#50] Relicense to AGPL-3.0-only
 
-## [3.20.3-1]
+## [3.20.3-1] - 2024-09-12
 ### Changed
 - [#48] Upgrade alpine to v3.20.3
 - [#48] Upgrade doguctl to v0.12.2
 
-## [3.20.2-1]
+## [3.20.2-1] - 2024-08-06
 ### Changed
 - [#42] Upgrade alpine to v3.20.2
 - [#42] Upgrade doguctl to v0.12.1
