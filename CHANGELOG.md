@@ -6,11 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.15.11-3]
+## [3.15.11-4] - 2024-12-27
+### Security
+- [#58] Update doguctl to version 0.13.1
+   - Fixes CVE-2024-45337
+
+## [3.15.11-3] - 2024-09-18
 ### Changed
 - [#50] Relicense to AGPL-3.0-only
 
-## [3.15.11-2]
+## [3.15.11-2] - 2024-08-06
 ### Changed
 - [#40] Update doguctl to v0.12.1
 
