@@ -6,16 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.19.4-2]
+## [3.19.4-3] - 2024-12-27
+### Security
+- [#58] Update doguctl to version 0.13.1
+   - Fixes CVE-2024-45337
+
+## [3.19.4-2] - 2024-09-18
 ### Changed
 - [#50] Relicense to AGPL-3.0-only
 
-## [3.19.4-1]
+## [3.19.4-1] - 2024-09-17
 ### Changed
 - Upgrade alpine to v3.19.4
 - Upgrade doguctl to v0.12.2
 
-## [3.19.3-1]
+## [3.19.3-1] - 2024-08-06
 ### Changed
 - [#44] Upgrade alpine to v3.19.3
 - [#44] Upgrade doguctl to v0.12.1
