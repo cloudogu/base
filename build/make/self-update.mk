@@ -1,5 +1,7 @@
+##@ Makefile management
+
 .PHONY: update-makefiles
-update-makefiles: do-update-makefiles
+update-makefiles: do-update-makefiles ## Update Makefiles to MAKEFILES_VERSION
 
 .PHONY: do-update-makefiles
 do-update-makefiles: $(TMP_DIR) download-and-extract remove-old-files copy-new-files
@@ -18,3 +20,13 @@ remove-old-files:
 .PHONY: copy-new-files
 copy-new-files:
 	@cp -r $(TMP_DIR)/makefiles-$(MAKEFILES_VERSION)/build/make $(BUILD_DIR)
+
+.PHONY: update-build-libs
+update-build-libs:
+	@echo "Check for newer Build-Lib versions"
+	build/make/self-update.sh buildlibs
+
+.PHONY: set-dogu-version
+set-dogu-version:
+	@echo "Set Version of Dogu without Release"
+	build/make/self-update.sh versions

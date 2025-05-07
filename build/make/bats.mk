@@ -1,16 +1,6 @@
-ALPINE_VERSION="3.21.0"
-CHANGE_COUNTER="1"
-IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
-IMAGE_NAME="registry.cloudogu.com/official/base"
-IMAGE_NAME_PRERELEASE="registry.cloudogu.com/prerelease_official/base"
-DOGUCTL_VERSION="0.13.2"
-MAKEFILES_VERSION="9.9.1"
-
-default: build
-
 WORKSPACE=/workspace
 BATS_LIBRARY_DIR=$(TARGET_DIR)/bats_libs
-TESTS_DIR=./unitTests
+TESTS_DIR=$(WORKDIR)/batsTests
 BASH_TEST_REPORT_DIR=$(TARGET_DIR)/shell_test_reports
 BASH_TEST_REPORTS=$(BASH_TEST_REPORT_DIR)/TestReport-*.xml
 BATS_ASSERT=$(BATS_LIBRARY_DIR)/bats-assert
@@ -19,37 +9,9 @@ BATS_SUPPORT=$(BATS_LIBRARY_DIR)/bats-support
 BATS_FILE=$(BATS_LIBRARY_DIR)/bats-file
 BATS_BASE_IMAGE?=bats/bats
 BATS_CUSTOM_IMAGE?=cloudogu/bats
-BATS_TAG?=1.2.1
-
-include build/make/variables.mk
-include build/make/self-update.mk
-include build/make/clean.mk
-
-.PHONY: info
-info:
-	@echo "version informations ..."
-	@echo "Version       : $(VERSION)"
-	@echo "Image Name    : $(IMAGE_NAME)"
-	@echo "Image Tag     : $(IMAGE_TAG)"
-	@echo "Image         : $(IMAGE_NAME):$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
-
-.PHONY: build
-build:
-	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
-
-.PHONY: deploy
-deploy: build
-	docker push "$(IMAGE_NAME):$(IMAGE_TAG)"
-
-.PHONY: deploy-prerelease
-deploy-prerelease: build
-	docker tag "$(IMAGE_NAME):$(IMAGE_TAG)" "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
-	docker rmi "$(IMAGE_NAME):$(IMAGE_TAG)"
-	docker push "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
-
-.PHONY: shell
-shell: build
-	docker run --rm -ti "$(IMAGE_NAME):$(IMAGE_TAG)" bash || 0
+BATS_TAG?=1.11.0
+BATS_DIR=build/make/bats
+BATS_WORKDIR="${WORKDIR}"/"${BATS_DIR}"
 
 .PHONY unit-test-shell:
 unit-test-shell: unit-test-shell-$(ENVIRONMENT)
@@ -84,15 +46,18 @@ unit-test-shell-local: $(BASH_SRC) $(PASSWD) $(ETCGROUP) $(HOME_DIR) buildTestIm
 		-w $(WORKSPACE) \
 		--entrypoint="" \
 		$(BATS_CUSTOM_IMAGE):$(BATS_TAG) \
-		${TESTS_DIR}/customBatsEntrypoint.sh make unit-test-shell-generic
+		"${BATS_DIR}"/customBatsEntrypoint.sh make unit-test-shell-generic-no-junit
 
 unit-test-shell-generic:
 	@bats --formatter junit --output ${BASH_TEST_REPORT_DIR} ${TESTS_DIR}
 
+unit-test-shell-generic-no-junit:
+	@bats ${TESTS_DIR}
+
 .PHONY buildTestImage:
 buildTestImage:
 	@echo "Build shell test container"
-	@cd ${TESTS_DIR} && docker build \
+	@cd $(BATS_WORKDIR) && docker build \
 		--build-arg=BATS_BASE_IMAGE=${BATS_BASE_IMAGE} \
 		--build-arg=BATS_TAG=${BATS_TAG} \
 		-t ${BATS_CUSTOM_IMAGE}:${BATS_TAG} \
