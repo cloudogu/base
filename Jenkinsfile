@@ -82,7 +82,7 @@ timestamps {
 
         stage('Trivy scan') {
             String imageName = sh(returnStdout: true, script: 'awk -F\'=\' \'/^IMAGE_NAME=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
-            String alpineVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^ALPINE_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
+            String alpineVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^ARG ALPINE_VER=/{gsub(/"/, "", $2); print $2}\' Dockerfile').trim()
             String changeCounter = sh(returnStdout: true, script: 'awk -F\'=\' \'/^CHANGE_COUNTER=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             Trivy trivy = new Trivy(this)
             trivy.scanImage("${imageName}:${alpineVersion}-${changeCounter}", params.TrivySeverityLevels, params.TrivyStrategy)

@@ -1,4 +1,4 @@
-ALPINE_VERSION="3.21.0"
+ALPINE_VERSION=$(shell awk -F'=' '/^ARG ALPINE_VER=/{gsub(/"/, "", $$2); print $$2}' Dockerfile)
 CHANGE_COUNTER="1"
 IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
 IMAGE_NAME="registry.cloudogu.com/official/base"
