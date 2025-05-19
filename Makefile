@@ -27,11 +27,9 @@ include build/make/clean.mk
 
 .PHONY: info
 info:
-	@echo "version informations ..."
-	@echo "Version       : $(VERSION)"
-	@echo "Image Name    : $(IMAGE_NAME)"
-	@echo "Image Tag     : $(IMAGE_TAG)"
-	@echo "Image         : $(IMAGE_NAME):$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
+	@echo "version information ..."
+	@echo "Image (release)   : $(IMAGE_NAME):$(IMAGE_TAG)"
+	@echo "Image (prerelease): $(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
 
 .PHONY: build
 build:
@@ -39,10 +37,12 @@ build:
 
 .PHONY: deploy
 deploy: build
+	@echo "Publishing image $(IMAGE_NAME):$(IMAGE_TAG)"
 	docker push "$(IMAGE_NAME):$(IMAGE_TAG)"
 
 .PHONY: deploy-prerelease
 deploy-prerelease: build
+	@echo "Publishing image $(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
 	docker tag "$(IMAGE_NAME):$(IMAGE_TAG)" "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
 	docker rmi "$(IMAGE_NAME):$(IMAGE_TAG)"
 	docker push "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
