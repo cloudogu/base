@@ -53,6 +53,11 @@ timestamps {
                         | jq -r 'first(.assets|to_entries[]|select(.value.name|test("doguctl-\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.tar\\\\.gz"))|.value.id)'
                 )"
 
+                if test -z "\${asset_id}"; then
+                    echo >&2 "No archive found in doguctl release ${DOGUCTL_TAG}"
+                    exit 1
+                fi
+
                 curl -fsSL \
                     -H "Accept: application/octet-stream" \
                     -H "Authorization: token ${GITHUB_PAT}" \
