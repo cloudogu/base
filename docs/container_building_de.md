@@ -1,14 +1,24 @@
-# Containerbau
+# Container building
 
-Dieses Container-Image bildet die Basis für viele dogu-Container-Images. Neben anderen Bestandteilen ist das Hilfsprogramm `doguctl` ein wichtiger Teil dieses Images.
+Dieses Container-Image bildet die Grundlage für viele Dogu-Container-Images.
+Unter anderem ist die Hilfsbinärdatei `doguctl` ein wesentlicher Bestandteil dieses Images.
 
-## Anleitung zum Bauen und Bereitstellen
+## Instructions for building and deploying
 
-1. Wechseln Sie in eine Umgebung, in der ein Download des Binärprogramms `doguctl` möglich ist (Sie benötigen private Repo-Berechtigungen)
-   1. Laden Sie die aktuellste Version von `doguctl` von [der doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases)
+Auf einem Entwicklungs-Branch:
+
+1. Aktualisiere die `Dockerfile` Felder `ALPINE_VER` and `ALPINE_VER_SHA` entsprechend
+2. Aktualisiere das `Makefile` Feld `CHANGE_COUNTER` entsprechend
+3. Aktualisiere das `Makefile` Feld `DOGUCTL_VERSION` entsprechend
+
+PR/Merge den Entwicklungs-Branch in den Haupt-Branch.
+
+## Instructions for building locally
+
+1. Aktualisiere die `Dockerfile` Felder `ALPINE_VER` and `ALPINE_VER_SHA` entsprechend
+2. Aktualisiere das `Makefile` Feld `CHANGE_COUNTER` entsprechend
+3. Aktualisiere das `Makefile` Feld `DOGUCTL_VERSION` entsprechend
+4. Wechseln Sie in eine Umgebung, in der ein Download des Binärprogramms `doguctl` möglich ist (Sie benötigen private Repo-Berechtigungen)
+   1. Laden Sie die aktuellste Version von `doguctl` von der [doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases) herunter.
    2. Platzieren Sie das Binary in `packages/`
-   3. Aktualisieren Sie die SHA256-Prüfsumme von `doguctl`, wenn sich die Version geändert hat
-2. Wechseln Sie zu einer laufenden CES-Instanz
-   1. Aktualisieren Sie die `Makefile` Felder `ALPINE_VERSION` und `CHANGE_COUNTER` entsprechend
-   2. Erstellen Sie das Basis-Dogu-Image mit `make` oder `make build`.
-   3. Verteilen Sie das Basis-Dogu-Image mit `make deploy`.
+5. Führen Sie `make build` aus
