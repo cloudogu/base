@@ -34,7 +34,45 @@ timestamps {
             final String doguctlPath = "packages/doguctl.tar.gz"
             final String doguctlTag = "v" + sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             withCredentials([string(credentialsId: 'github-pat-doguctl', variable: 'GITHUB_PAT')]) {
-                downloadDoguctl(doguctlPath, doguctlTag, env.GITHUB_PAT)
+                sh """
+
+                set -o errexit
+                set -o nounset
+
+                if test -f "${doguctlPath}"; then
+                    echo >&2 "File exists: ${doguctlPath}"
+                    file "${doguctlPath}"
+                    sha256sum "${doguctlPath}"
+                    exit 0
+                fi
+
+                # find id of first asset with "doguctl-\\d+\\.\\d+\\.\\d+\\.tar\\.gz" name pattern
+                asset_id="\$(
+                    curl -fsSL \
+                        -H "Accept: application/vnd.github+json" \
+                        -H "Authorization: token ${GITHUB_PAT}" \
+                        -H "X-GitHub-Api-Version: 2022-11-28" \
+                        "https://api.github.com/repos/cloudogu/doguctl/releases/tags/${doguctlTag}" \
+                        | jq -r 'first(.assets|to_entries[]|select(.value.name|test("doguctl-\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.tar\\\\.gz"))|.value.id)'
+                )"
+
+                if test -z "\${asset_id}"; then
+                    echo >&2 "No archive found in doguctl release ${doguctlTag}"
+                    exit 1
+                fi
+
+                curl -fsSL \
+                    -H "Accept: application/octet-stream" \
+                    -H "Authorization: token ${GITHUB_PAT}" \
+                    -H "X-GitHub-Api-Version: 2022-11-28" \
+                    -o "${doguctlPath}" \
+                    "https://api.github.com/repos/cloudogu/doguctl/releases/assets/\${asset_id}"
+
+                echo >&2 "File downloaded: ${doguctlPath}"
+                file "${doguctlPath}"
+                sha256sum "${doguctlPath}"
+
+            """
             }
         }
 
@@ -87,46 +125,4 @@ timestamps {
 static def escapeToken(String token) {
     token = token.replaceAll("\\\$", '\\\\\\\$')
     return token
-}
-
-static def downloadDoguctl(String doguctlPath = "packages/doguctl.tar.gz", String doguctlTag, String githubPat) {
-    sh """
-
-                set -o errexit
-                set -o nounset
-
-                if test -f "${doguctlPath}"; then
-                    echo >&2 "File exists: ${doguctlPath}"
-                    file "${doguctlPath}"
-                    sha256sum "${doguctlPath}"
-                    exit 0
-                fi
-
-                # find id of first asset with "doguctl-\\d+\\.\\d+\\.\\d+\\.tar\\.gz" name pattern
-                asset_id="\$(
-                    curl -fsSL \
-                        -H "Accept: application/vnd.github+json" \
-                        -H "Authorization: token ${githubPat}" \
-                        -H "X-GitHub-Api-Version: 2022-11-28" \
-                        "https://api.github.com/repos/cloudogu/doguctl/releases/tags/${doguctlTag}" \
-                        | jq -r 'first(.assets|to_entries[]|select(.value.name|test("doguctl-\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.tar\\\\.gz"))|.value.id)'
-                )"
-
-                if test -z "\${asset_id}"; then
-                    echo >&2 "No archive found in doguctl release ${doguctlTag}"
-                    exit 1
-                fi
-
-                curl -fsSL \
-                    -H "Accept: application/octet-stream" \
-                    -H "Authorization: token ${githubPat}" \
-                    -H "X-GitHub-Api-Version: 2022-11-28" \
-                    -o "${doguctlPath}" \
-                    "https://api.github.com/repos/cloudogu/doguctl/releases/assets/\${asset_id}"
-
-                echo >&2 "File downloaded: ${doguctlPath}"
-                file "${doguctlPath}"
-                sha256sum "${doguctlPath}"
-
-            """
 }
