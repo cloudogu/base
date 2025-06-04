@@ -24,7 +24,7 @@ timestamps {
             checkout scm
         }
 
-        final String alpineVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^ARG ALPINE_VER=/{gsub(/"/, "", $2); print $2}\' Dockerfile').trim()
+        final String alpineVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^ALPINE_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
         final String changeCounter = sh(returnStdout: true, script: 'awk -F\'=\' \'/^CHANGE_COUNTER=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
 
         final String imageName = sh(returnStdout: true, script: 'awk -F\'=\' \'/^IMAGE_NAME=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()

@@ -1,7 +1,7 @@
-ARG ALPINE_VER
+ARG ALPINE_VERSION
 ARG ALPINE_VER_SHA
 
-FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA}
+FROM alpine:${ALPINE_VERSION}@sha256:${ALPINE_VER_SHA}
 
 LABEL maintainer="hello@cloudogu.com"
 

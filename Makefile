@@ -1,7 +1,7 @@
-ALPINE_VER="3.21.0"
+ALPINE_VERSION="3.21.0"
 ALPINE_VER_SHA="beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d"
 CHANGE_COUNTER="1"
-IMAGE_TAG="$(ALPINE_VER)-$(CHANGE_COUNTER)"
+IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
 IMAGE_NAME="registry.cloudogu.com/official/base"
 IMAGE_NAME_PRERELEASE="registry.cloudogu.com/prerelease_official/base"
 DOGUCTL_VERSION="0.13.2"
@@ -35,7 +35,7 @@ info:
 .PHONY: build
 build:
 	docker build \
-	--build-arg "ALPINE_VER=$(ALPINE_VER)" \
+	--build-arg "ALPINE_VERSION=$(ALPINE_VERSION)" \
 	--build-arg "ALPINE_VER_SHA=$(ALPINE_VER_SHA)" \
 	-t "$(IMAGE_NAME):$(IMAGE_TAG)" .
 
