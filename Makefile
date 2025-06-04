@@ -1,9 +1,9 @@
 ALPINE_VERSION=$(shell awk -F'=' '/^ARG ALPINE_VER=/{gsub(/"/, "", $$2); print $$2}' Dockerfile)
-CHANGE_COUNTER="1"
+CHANGE_COUNTER=$(shell awk -F'=' '/^ARG CHANGE_COUNTER=/{gsub(/"/, "", $$2); print $$2}' Dockerfile)
 IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
 IMAGE_NAME="registry.cloudogu.com/official/base"
 IMAGE_NAME_PRERELEASE="registry.cloudogu.com/prerelease_official/base"
-DOGUCTL_VERSION="0.13.2"
+DOGUCTL_VERSION=$(shell awk -F'=' '/^ARG DOGUCTL_VERSION=/{gsub(/"/, "", $$2); print $$2}' Dockerfile)
 MAKEFILES_VERSION="9.9.1"
 
 default: build
