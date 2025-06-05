@@ -3,16 +3,27 @@
 
 # Base Dogu Docker image
 
-## How to Build
+## How to Publish
+
+### PreRelease
+
+Run the [Pipeline](https://ecosystem.cloudogu.com/jenkins/job/cloudogu-github/job/base) with parameter `PublishPrerelease` enabled,
+to build and publish a prerelease image to the `prerelease_official` namespace (to `registry.cloudogu.com`).
+
+### Release
+
+The [Pipeline](https://ecosystem.cloudogu.com/jenkins/job/cloudogu-github/job/base) will build and publish a release image on every main-branch commit.
+
+## How to Build locally
 
     make build
 
 
 NOTE: _alpine linux version_ see FROM statement in Dockerfile
 
-NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the first line in Dockerfile
+NOTE: _cloudogu revision_ see CHANGE_COUNTER in Makefile
 
-More detailed instructions about building the base image can be found in [container_building.en.md](docs/container_building_en.md). 
+More detailed instructions about building the base image can be found in [container_building.en.md](docs/container_building_en.md).
 
 ## Why is there a branch called alpine3.5?
 
@@ -22,8 +33,8 @@ Some Dogus need Alpine 3.5 as their base, therefore, a base Dogu version with Al
 
 ### doguctl
 
-origin is https://github.com/cloudogu/doguctl/releases/download/v0.3.0/doguctl-0.3.0.tar.gz
-cached in packages directory to avoid download
+When the image is built without the [Pipeline](https://ecosystem.cloudogu.com/jenkins/job/cloudogu-github/job/base),
+the doguctl package must be supplied manually. The package can be found in the [latest release](https://github.com/cloudogu/doguctl/releases/latest) assets.
 
 ---
 ## What is the Cloudogu EcoSystem?

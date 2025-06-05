@@ -1,31 +1,24 @@
-# keep variables beyond the single build stages, see https://stackoverflow.com/a/53682110/12529534
+ARG ALPINE_VERSION
+ARG ALPINE_VER_SHA
 
-ARG ALPINE_VER=3.22.0
-ARG ALPINE_VER_SHA=8a1f59ffb675680d47db6337b49d22281a139e9d709335b492be023728e11715
-ARG DOGUCTL_VERSION=0.13.2
-ARG DOGUCTL_SHA256SUM=94a652beba7484ba92f3e869e11be82902769490ef5272e6eac1a3d0969f1a0f
-
-FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA} AS doguctl-provider
-
-ARG DOGUCTL_VERSION
-ARG DOGUCTL_SHA256SUM
-
-COPY packages/doguctl-${DOGUCTL_VERSION}.tar.gz /doguctl.tar.gz
-
-RUN \
-  echo "$DOGUCTL_SHA256SUM /doguctl.tar.gz" | sha256sum -c - && \
-  tar -xzf /doguctl.tar.gz && \
-  rm /doguctl.tar.gz
-
-FROM alpine:${ALPINE_VER}@sha256:${ALPINE_VER_SHA}
+FROM alpine:${ALPINE_VERSION}@sha256:${ALPINE_VER_SHA}
 
 LABEL maintainer="hello@cloudogu.com"
 
 COPY resources/ /
 
-# copy doguctl binary
-COPY --from=doguctl-provider /doguctl /usr/bin/
+COPY packages/doguctl.tar.gz /tmp/doguctl.tar.gz
+RUN tar -xzf /tmp/doguctl.tar.gz -C /tmp \
+    && install -m 755 -p /tmp/doguctl /usr/local/bin/doguctl \
+    && rm -f /tmp/doguctl.tar.gz /tmp/doguctl
 
 # install dependencies
-RUN apk update && apk upgrade
-RUN apk add --no-cache bash openssl tar zip unzip ca-certificates jq
+RUN apk update \
+    && apk add --no-cache \
+        bash \
+        ca-certificates \
+        jq \
+        openssl \
+        tar \
+        zip unzip \
+    && apk upgrade

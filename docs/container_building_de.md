@@ -1,14 +1,19 @@
 # Containerbau
 
-Dieses Container-Image bildet die Basis für viele dogu-Container-Images. Neben anderen Bestandteilen ist das Hilfsprogramm `doguctl` ein wichtiger Teil dieses Images.
+Dieses Container-Image bildet die Grundlage für viele Dogu-Container-Images.
+Unter anderem ist die Hilfsbinärdatei `doguctl` ein wesentlicher Bestandteil dieses Images.
 
 ## Anleitung zum Bauen und Bereitstellen
 
-1. Wechseln Sie in eine Umgebung, in der ein Download des Binärprogramms `doguctl` möglich ist (Sie benötigen private Repo-Berechtigungen)
-   1. Laden Sie die aktuellste Version von `doguctl` von [der doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases)
+Auf einem Entwicklungs-Branch:
+
+1. Aktualisiere die `Makefile` Felder `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER` und `DOGUCTL_VERSION` entsprechend
+2. PR/Merge den Entwicklungs-Branch in den Haupt-Branch `main`.
+
+## Anleitung zum lokalen Bauen
+
+1. Aktualisiere die `Makefile` Felder `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER` und `DOGUCTL_VERSION` entsprechend
+2. Wechseln Sie in eine Umgebung, in der ein Download des Binärprogramms `doguctl` möglich ist (Sie benötigen private Repo-Berechtigungen)
+   1. Laden Sie die aktuellste Version von `doguctl` von der [doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases) herunter
    2. Platzieren Sie das Binary in `packages/`
-   3. Aktualisieren Sie die SHA256-Prüfsumme von `doguctl`, wenn sich die Version geändert hat
-2. Wechseln Sie zu einer laufenden CES-Instanz
-   1. Aktualisieren Sie die `Makefile` Felder `ALPINE_VERSION` und `CHANGE_COUNTER` entsprechend
-   2. Erstellen Sie das Basis-Dogu-Image mit `make` oder `make build`.
-   3. Verteilen Sie das Basis-Dogu-Image mit `make deploy`.
+3. Führen Sie `make build` aus
