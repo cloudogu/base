@@ -33,6 +33,7 @@ timestamps {
         stage('Download doguctl') {
             final String doguctlPath = "packages/doguctl.tar.gz"
             final String doguctlTag = "v" + sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
+            final String doguctlSha = sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VER_SHA=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             withCredentials([string(credentialsId: 'github-pat-doguctl', variable: 'GITHUB_PAT')]) {
                 sh """
 
@@ -70,7 +71,7 @@ timestamps {
 
                 echo >&2 "File downloaded: ${doguctlPath}"
                 file "${doguctlPath}"
-                sha256sum "${doguctlPath}"
+                echo "${doguctlSha}" "${doguctlPath}" | sha256sum -c -
 
             """
             }
