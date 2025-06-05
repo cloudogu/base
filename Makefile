@@ -5,7 +5,7 @@ IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
 IMAGE_NAME="registry.cloudogu.com/official/base"
 IMAGE_NAME_PRERELEASE="registry.cloudogu.com/prerelease_official/base"
 DOGUCTL_VERSION="0.13.2"
-MAKEFILES_VERSION="9.9.1"
+MAKEFILES_VERSION="10.1.0"
 
 default: build
 
