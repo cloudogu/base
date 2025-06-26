@@ -79,7 +79,8 @@ timestamps {
 
         stage('Lint') {
             lintDockerfile()
-            shellCheck("resources/usr/bin/create-ca-certificates.sh")
+            final String scriptFiles = sh(returnStdout: true, script: "find resources -iname '*.sh' | xargs").trim()
+            shellCheck(scriptFiles)
         }
 
         stage('Build') {
