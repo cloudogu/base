@@ -1,7 +1,10 @@
-ALPINE_VERSION="3.19.4"
-CHANGE_COUNTER="3"
-IMAGE_TAG="$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
-IMAGE_NAME="registry.cloudogu.com/official/base"
+ALPINE_VERSION=3.19.4
+CHANGE_COUNTER=3
+IMAGE_TAG=$(ALPINE_VERSION)-$(CHANGE_COUNTER)
+IMAGE_NAME=registry.cloudogu.com/official/base
+IMAGE_NAME_PRERELEASE=registry.cloudogu.com/prerelease_official/base
+DOGUCTL_VERSION=0.13.3
+DOGUCTL_VER_SHA=612ca0c4890984401206c148106e4ced23c90924dd2ad979b2cbcc8b0a50e395
 MAKEFILES_VERSION=4.5.0
 
 default: build
@@ -25,19 +28,28 @@ include build/make/clean.mk
 
 .PHONY: info
 info:
-	@echo "version informations ..."
-	@echo "Version       : $(VERSION)"
-	@echo "Image Name    : $(IMAGE_NAME)"
-	@echo "Image Tag     : $(IMAGE_TAG)"
-	@echo "Image         : $(IMAGE_NAME):$(ALPINE_VERSION)-$(CHANGE_COUNTER)"
+	@echo "Version information ..."
+	@echo "Image (release)   : $(IMAGE_NAME):$(IMAGE_TAG)"
+	@echo "Image (prerelease): $(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
 
 .PHONY: build
 build:
-	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
+	docker build \
+	--build-arg "ALPINE_VERSION=$(ALPINE_VERSION)" \
+	--build-arg "ALPINE_VER_SHA=$(ALPINE_VER_SHA)" \
+	-t "$(IMAGE_NAME):$(IMAGE_TAG)" .
 
 .PHONY: deploy
 deploy: build
+	@echo "Publishing image $(IMAGE_NAME):$(IMAGE_TAG)"
 	docker push "$(IMAGE_NAME):$(IMAGE_TAG)"
+
+.PHONY: deploy-prerelease
+deploy-prerelease: build
+	@echo "Publishing image $(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
+	docker tag "$(IMAGE_NAME):$(IMAGE_TAG)" "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
+	docker rmi "$(IMAGE_NAME):$(IMAGE_TAG)"
+	docker push "$(IMAGE_NAME_PRERELEASE):$(IMAGE_TAG)"
 
 .PHONY: shell
 shell: build
