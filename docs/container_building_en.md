@@ -7,8 +7,20 @@ Among other parts the helper binary `doguctl` is a vital part of this image.
 
 On a development branch:
 
-1. Update the `Makefile` fields `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER` and `DOGUCTL_VERSION` accordingly
-2. PR/merge the development branch into the main branch
+1. Update the `Makefile` fields `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER`, `DOGUCTL_VERSION` and `DOGUCTL_VER_SHA` accordingly
+2. PR/merge the development branch into the target-branch
+
+The following parameters are available in the Jenkins Pipeline:
+- `PublishRelease`
+- `PublishPrerelease`
+
+If these parameters are enabled, the image will be published after successful build.
+
+With the `PublishRelease` parameter enabled, the image will be published in the namespace `registry.cloudogu.com/official/`.
+
+With the `PublishPrerelease` parameter enabled, the image will be published in the namespace `registry.cloudogu.com/prerelease_official/`.
+
+To rebuild and publish older versions of the image, branches are available for which the build and release process can be started using parameters similar to the main branch.
 
 ## Instructions for building locally
 
