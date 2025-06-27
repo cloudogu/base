@@ -117,6 +117,9 @@ timestamps {
         if (params.PublishRelease) {
             final String currentTag = sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
             stage('Validate tag') {
+                if (currentTag.isBlank()) {
+                    error("Tag is missing!")
+                }
                 if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
                     error("Tag in unknown format: ${currentTag}")
                 }
