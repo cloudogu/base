@@ -35,18 +35,47 @@ timestamps {
 
         stage('Download doguctl') {
             final String doguctlPath = "packages/doguctl.tar.gz"
-            final String doguctlVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
+            final String doguctlTag = "v" + sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             final String doguctlSha = sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VER_SHA=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             withCredentials([string(credentialsId: 'github-pat-doguctl', variable: 'GITHUB_PAT')]) {
-                fileOperations([fileDownloadOperation(
-                        url: "https://github.com/cloudogu/doguctl/releases/download/v${doguctlVersion}/doguctl-${doguctlVersion}.tar.gz",
-                        targetLocation: 'packages/'
-                )])
                 sh """
-                set -eu
-                mv "packages/doguctl-${doguctlVersion}.tar.gz" "${doguctlPath}"
+
+                set -o errexit
+                set -o nounset
+
+                if test -f "${doguctlPath}"; then
+                    echo >&2 "File exists: ${doguctlPath}"
+                    file "${doguctlPath}"
+                    sha256sum "${doguctlPath}"
+                    exit 0
+                fi
+
+                # find id of first asset with "doguctl-\\d+\\.\\d+\\.\\d+\\.tar\\.gz" name pattern
+                asset_id="\$(
+                    curl -fsSL \
+                        -H "Accept: application/vnd.github+json" \
+                        -H "Authorization: token ${GITHUB_PAT}" \
+                        -H "X-GitHub-Api-Version: 2022-11-28" \
+                        "https://api.github.com/repos/cloudogu/doguctl/releases/tags/${doguctlTag}" \
+                        | jq -r 'first(.assets|to_entries[]|select(.value.name|test("doguctl-\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.tar\\\\.gz"))|.value.id)'
+                )"
+
+                if test -z "\${asset_id}"; then
+                    echo >&2 "No archive found in doguctl release ${doguctlTag}"
+                    exit 1
+                fi
+
+                curl -fsSL \
+                    -H "Accept: application/octet-stream" \
+                    -H "Authorization: token ${GITHUB_PAT}" \
+                    -H "X-GitHub-Api-Version: 2022-11-28" \
+                    -o "${doguctlPath}" \
+                    "https://api.github.com/repos/cloudogu/doguctl/releases/assets/\${asset_id}"
+
+                echo >&2 "File downloaded: ${doguctlPath}"
                 file "${doguctlPath}"
                 echo "${doguctlSha}" "${doguctlPath}" | sha256sum -c -
+
             """
             }
         }
