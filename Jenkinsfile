@@ -72,7 +72,7 @@ timestamps {
                     -o "${doguctlPath}" \
                     "https://api.github.com/repos/cloudogu/doguctl/releases/assets/\${asset_id}"
 
-                echo >&2 "Download finished: ${doguctlPath}"
+                echo >&2 "File downloaded: ${doguctlPath}"
                 file "${doguctlPath}"
                 echo "${doguctlSha}" "${doguctlPath}" | sha256sum -c -
 
@@ -115,7 +115,17 @@ timestamps {
         }
 
         if (params.PublishRelease) {
+            final String currentTag = sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
+            stage('Validate tag') {
+                if (currentTag.isBlank()) {
+                    error("Tag is missing!")
+                }
+                if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
+                    error("Tag in unknown format: ${currentTag}")
+                }
+            }
             stage('Publish release') {
+                println("Publishing release at tag: ${currentTag}")
                 withCredentials([[$class          : 'UsernamePasswordMultiBinding',
                                   credentialsId   : "cesmarvin-setup",
                                   usernameVariable: 'TOKEN_ID',
