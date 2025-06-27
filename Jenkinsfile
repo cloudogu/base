@@ -38,10 +38,10 @@ timestamps {
             final String doguctlVersion = sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VERSION=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             final String doguctlSha = sh(returnStdout: true, script: 'awk -F\'=\' \'/^DOGUCTL_VER_SHA=/{gsub(/"/, "", $2); print $2}\' Makefile').trim()
             withCredentials([string(credentialsId: 'github-pat-doguctl', variable: 'GITHUB_PAT')]) {
-                fileDownloadOperation(
+                fileOperations([fileDownloadOperation(
                         url: "https://github.com/cloudogu/doguctl/releases/download/v${doguctlVersion}/doguctl-${doguctlVersion}.tar.gz",
                         targetLocation: 'packages/'
-                )
+                )])
                 sh """
                 set -eu
                 mv "packages/doguctl-${doguctlVersion}.tar.gz" "${doguctlPath}"
