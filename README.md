@@ -6,7 +6,7 @@
 Detailed instructions for building and releasing the base image can be found in [container_building.en.md](docs/container_building_en.md).
 
 
-## Why is there a branch called `alpine3.xx`?
+## Why are there branches called `alpine3.xx`?
 
 Some Dogus need older Alpine version as their bases, therefore, a set of base Dogus with older Alpine versions must be maintained in addition to the latest stable Alpine version.
 

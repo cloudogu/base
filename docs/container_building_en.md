@@ -16,9 +16,9 @@ The following parameters are available in the Jenkins Pipeline:
 
 If these parameters are enabled, the image will be published after successful build.
 
-With the `PublishRelease` parameter enabled, the image will be published in the namespace `registry.cloudogu.com/official/`.
-
 With the `PublishPrerelease` parameter enabled, the image will be published in the namespace `registry.cloudogu.com/prerelease_official/`.
+
+With the `PublishRelease` parameter enabled, the image will be published in the namespace `registry.cloudogu.com/official/` and a GitHub Release will be created.
 
 To rebuild and publish older versions of the image, branches are available for which the build and release process can be started using parameters similar to the main branch.
 

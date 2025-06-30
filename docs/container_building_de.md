@@ -16,9 +16,9 @@ In der Jenkins Pipeline sind folgende Parameter verfügbar:
 
 Werden diese Parameter aktiviert, wird das gebaute Image anschließend veröffentlicht.
 
-Mit aktiviertem `PublishRelease` Parameter wird das Image im Namespace `registry.cloudogu.com/official/` veröffentlicht.
-
 Mit aktiviertem `PublishPrerelease` Parameter wird das Image im Namespace `registry.cloudogu.com/prerelease_official/` veröffentlicht.
+
+Mit aktiviertem `PublishRelease` Parameter wird das Image im Namespace `registry.cloudogu.com/official/` veröffentlicht und es wird ein GitHub Release erstellt.
 
 Um ältere Varianten des Images erneut zu bauen und zu veröffentlichen, stehen
 Branches zu Verfügung, für welche der Build- & Release-Prozess mittels
