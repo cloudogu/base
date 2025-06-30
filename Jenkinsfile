@@ -139,6 +139,12 @@ timestamps {
             }
         }
 
+        post {
+            always {
+                cleanWs()
+            }
+        }
+
     }
 }
 
