@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [3.22.0-3] - 2025-06-30
+### Changed
+- [#67] Update Makefiles to v10.1.1
+- [#67] Automated pipeline builds
+
 ## [3.22.0-2] - 2025-06-10
 ### Changed
 - [#64] Upgrade doguctl to v0.13.3
