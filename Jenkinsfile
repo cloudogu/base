@@ -116,11 +116,12 @@ timestamps {
 
         if (params.PublishRelease) {
             final String currentTag = sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
+            final String currentBranch = sh(returnStdout: true, script: "git branch --show-current").trim()
             stage('Validate tag') {
                 if (currentTag.isBlank()) {
                     final String newTag = "v" + imageVersion
                     println("Creating missing tag: ${newTag}")
-                    git.setTag(newTag, 'sos-automat', 'sos-automat', 'sos@cloudogu.com')
+                    git.setTag(newTag, "Release ${imageVersion}", 'sos-automat', 'sos@cloudogu.com')
                     git.push(newTag)
                 } else if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
                     error("Tag in unknown format: ${currentTag}")
@@ -135,7 +136,7 @@ timestamps {
                     sh "docker login -u ${escapeToken(env.TOKEN_ID)} -p ${escapeToken(env.TOKEN_SECRET)} registry.cloudogu.com"
                     sh "make deploy"
                 }
-                github.createReleaseWithChangelog(imageVersion, changelog)
+                github.createReleaseWithChangelog("v${imageVersion}", changelog, currentBranch)
             }
         }
 
