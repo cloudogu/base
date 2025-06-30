@@ -121,7 +121,7 @@ timestamps {
                     final String newTag = "v" + imageVersion
                     println("Creating missing tag: ${newTag}")
                     git.setTag(newTag, 'sos-automat', 'sos-automat', 'sos@cloudogu.com')
-                    git.push(git.getBranchName())
+                    git.push("refs/heads/" + git.getBranchName())
                 } else if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
                     error("Tag in unknown format: ${currentTag}")
                 }
