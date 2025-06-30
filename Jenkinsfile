@@ -118,9 +118,11 @@ timestamps {
             final String currentTag = sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
             stage('Validate tag') {
                 if (currentTag.isBlank()) {
-                    error("Tag is missing!")
-                }
-                if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
+                    final String newTag = "v" + imageVersion
+                    println("Creating missing tag: ${newTag}")
+                    git.setTag(newTag, 'sos-automat', 'sos-automat', 'sos@cloudogu.com')
+                    git.push()
+                } else if (!currentTag.matches("^v\\d\\.\\d\\.\\d.*")) {
                     error("Tag in unknown format: ${currentTag}")
                 }
             }
