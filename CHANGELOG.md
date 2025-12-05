@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [3.23.0-1] - 2025-12-05
+### Changed
+- [#72] Update Alpine to v3.23.0
+- [#72] Update Makefiles to v10.5.0
+
 ## [3.22.0-5] - 2025-11-20
 ### Changed
 - [#71] Update Alpine packages
