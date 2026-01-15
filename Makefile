@@ -15,6 +15,8 @@ include build/make/self-update.mk
 include build/make/clean.mk
 include build/make/bats.mk
 
+TESTS_DIR=./unitTests
+
 .PHONY: info
 info:
 	@echo "version information ..."
