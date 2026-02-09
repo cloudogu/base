@@ -8,8 +8,9 @@ Among other parts the helper binary `doguctl` is a vital part of this image.
 On a development branch:
 
 1. Update the `Makefile` fields `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER`, `DOGUCTL_VERSION` and `DOGUCTL_VER_SHA` accordingly
-2. PR/merge the development branch into the target-branch
-3. Tag the target commit (e.g. `v3.45.6-7`) for the release.
+2. Create a section for the new version in the `CHANGELOG.md`.
+3. PR/merge the development branch into the target-branch
+4. Tag the target commit (e.g. `v3.45.6-7`) for the release.
 
 The following parameters are available in the Jenkins Pipeline:
 - `PublishRelease`

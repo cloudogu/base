@@ -8,8 +8,9 @@ Unter anderem ist die Hilfsbinärdatei `doguctl` ein wesentlicher Bestandteil di
 Auf einem Entwicklungs-Branch:
 
 1. Aktualisiere die `Makefile` Felder `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER`, `DOGUCTL_VERSION` und `DOGUCTL_VER_SHA` entsprechend.
-2. PR/Merge den Entwicklungs-Branch in den Ziel-Branch.
-3. Tagge den Ziel-Commit (z.B. `v3.45.6-7`) für den Release.
+2. Erstelle eine Sektion für die neue Version in der `CHANGELOG.md`.
+3. PR/Merge den Entwicklungs-Branch in den Ziel-Branch.
+4. Tagge den Ziel-Commit (z.B. `v3.45.6-7`) für den Release.
 
 In der Jenkins Pipeline sind folgende Parameter verfügbar:
 - `PublishRelease`
