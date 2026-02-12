@@ -26,6 +26,7 @@ info:
 .PHONY: build
 build:
 	docker build \
+	--no-cache \
 	--build-arg "ALPINE_VERSION=$(ALPINE_VERSION)" \
 	--build-arg "ALPINE_VER_SHA=$(ALPINE_VER_SHA)" \
 	-t "$(IMAGE_NAME):$(IMAGE_TAG)" .
