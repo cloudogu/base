@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.23.3-3] - 2026-02-12
+### Security
+- Update doguctl to v0.15.0 to fix [CVE-2025-61732](https://avd.aquasec.com/nvd/2026/CVE-2025-61732) and [CVE-2025-68121](https://avd.aquasec.com/nvd/2026/CVE-2025-68121).
+
 ## [3.23.3-2] - 2026-02-05
 ### Security
 - Fixes [CVE-2026-24515](https://avd.aquasec.com/nvd/2026/cve-2026-24515)
