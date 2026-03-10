@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.22.3-1] - 2026-03-10
 ### Changed
+- Update Alpine to v3.22.3
 - Update Makefiles to v10.6.1
 
 ## [3.22.0-7] - 2026-02-17
