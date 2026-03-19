@@ -19,8 +19,8 @@ Es ist eher unüblich, ein _Script-under-test_ wie `startup.sh` ganz alleine aus
 Die gute Nachricht ist, dass das Testen einzelner Funktionen mit diesen kleinen Teilen möglich ist:
 
 1. Sourcing-Ausführungsgarantien verwenden
-1. Führen Sie Binärdateien und logischen Code nur innerhalb von Funktionen aus
-1. Sourcen mit (dynamischen, aber fixierten) Umgebungsvariablen
+2. Führen Sie Binärdateien und logischen Code nur innerhalb von Funktionen aus
+3. Sourcen mit (dynamischen, aber fixierten) Umgebungsvariablen
 
 #### Sourcing-Ausführungsgarantien verwenden
 
