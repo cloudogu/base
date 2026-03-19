@@ -19,6 +19,7 @@ RUN apk update \
         ca-certificates \
         jq \
         openssl \
+        tzdata \
         tar \
         zip unzip \
     && apk upgrade

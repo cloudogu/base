@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.23.3-6] - 2026-03-19
+### Added
+- [#84] add tzdata package to set timezone in all dogus
+
 ## [3.23.3-5] - 2026-03-10
 ### Changed
 - Update Makefiles to v10.6.1
