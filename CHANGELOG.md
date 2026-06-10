@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- Update Alpine to v3.24.0
+- Update Makefiles to v10.9.1
+
 ## [3.23.4-2] - 2026-05-11
 ### Removed
 - [#86] remove tzdata package
