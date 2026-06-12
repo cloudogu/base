@@ -3,7 +3,8 @@
   "baseBranchPatterns": [
     "alpine3.21",
     "alpine3.22",
-    "alpine3.23"
+    "alpine3.23",
+    "alpine3.24"
   ],
   "ignorePaths": [
     "/build/**"
