@@ -3,13 +3,11 @@
 
 # Base Dogu Docker image
 
-Detailed instructions for building and releasing the base image can be found in [container_building.en.md](docs/container_building_en.md).
-
+## Build & Release
+Detailed instructions for building and releasing the base image can be found in [build_release_en.md](docs/build_release_en.md).
 
 ## Why are there branches called `alpine3.xx`?
-
 Some Dogus need older Alpine version as their bases, therefore, a set of base Dogus with older Alpine versions must be maintained in addition to the latest stable Alpine version.
-
 
 ## What is the Cloudogu EcoSystem?
 The Cloudogu EcoSystem is an open platform, which lets you choose how and where your team creates great software. Each service or tool is delivered as a Dogu, a Docker container. Each Dogu can easily be integrated in your environment just by pulling it from our registry.
