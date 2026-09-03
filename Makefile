@@ -1,11 +1,11 @@
 ALPINE_VERSION=3.24.1
 ALPINE_VER_SHA=28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-CHANGE_COUNTER=2
+CHANGE_COUNTER=3
 IMAGE_TAG=$(ALPINE_VERSION)-$(CHANGE_COUNTER)
 IMAGE_NAME=registry.cloudogu.com/official/base
 IMAGE_NAME_PRERELEASE=registry.cloudogu.com/prerelease_official/base
-DOGUCTL_VERSION=0.15.1
-DOGUCTL_VER_SHA=5a3042dbf54341884347cdd99bb60e032c6d2ba8909799114e4fd5d6fc33fe93
+DOGUCTL_VERSION=0.15.2
+DOGUCTL_VER_SHA=3203958e9de5f17d0238a275db4085ccc80fc0642db1b84a235782cef88da000
 # renovate: datasource=github-tags depName=cloudogu/makefiles extractVersion=^v(?<version>.*)$
 MAKEFILES_VERSION=10.9.1
 
