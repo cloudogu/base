@@ -10,11 +10,11 @@ Auf einem Entwicklungs-Branch:
 1. Aktualisiere die `Makefile` Felder `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER`, `DOGUCTL_VERSION` und `DOGUCTL_VER_SHA` entsprechend.
 2. Erstelle eine Sektion für die neue Version in der `CHANGELOG.md`.
 3. PR/Merge den Entwicklungs-Branch in den Ziel-Branch.
-4. Tagge den Ziel-Commit (z.B. `v3.45.6-7`) für den Release.
 
 In der Jenkins Pipeline sind folgende Parameter verfügbar:
 - `PublishRelease`
 - `PublishPrerelease`
+  Das Release Tag wird aus den Makefile Variablen generiert.
 
 Werden diese Parameter aktiviert, wird das gebaute Image anschließend veröffentlicht.
 
@@ -28,8 +28,8 @@ Parameter analog zum Haupt-Branch gestartet werden kann.
 
 ## Anleitung zum lokalen Bauen
 
-1. Aktualisiere die `Makefile` Felder `ALPINE_VERSION`, `ALPINE_VER_SHA`, `CHANGE_COUNTER` und `DOGUCTL_VERSION` entsprechend
+1. Aktualisiere die `Makefile` Felder `DEBIAN_VERSION`, `DEBIAN_VER_SHA`, `CHANGE_COUNTER` und `DOGUCTL_VERSION` entsprechend
 2. Wechseln Sie in eine Umgebung, in der ein Download des Binärprogramms `doguctl` möglich ist (Sie benötigen private Repo-Berechtigungen)
-   1. Laden Sie die aktuellste Version von `doguctl` von der [doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases) herunter
-   2. Platzieren Sie das Binary in `packages/`
+    1. Laden Sie die aktuellste Version von `doguctl` von der [doguctl Release-Seite](https://github.com/cloudogu/doguctl/releases) herunter
+    2. Platzieren Sie das Binary in `packages/`
 3. Führen Sie `make build` aus
