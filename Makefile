@@ -1,6 +1,6 @@
 ALPINE_VERSION=3.24.2
 ALPINE_VER_SHA=294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
-CHANGE_COUNTER=3
+CHANGE_COUNTER=1
 IMAGE_TAG=$(ALPINE_VERSION)-$(CHANGE_COUNTER)
 IMAGE_NAME=registry.cloudogu.com/official/base
 IMAGE_NAME_PRERELEASE=registry.cloudogu.com/prerelease_official/base
