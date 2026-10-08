@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add tzdata package again, it is needed for the time zone on classic CES (reverts #86)
 
+### Changed
+- Update Makefiles to v11.1.1
+
 ## [3.21.7-3] - 2026-09-28
 ### Security
 - Update doguctl to 0.16.0
