@@ -13,12 +13,15 @@ RUN tar -xzf /tmp/doguctl.tar.gz -C /tmp \
     && rm -f /tmp/doguctl.tar.gz /tmp/doguctl
 
 # install dependencies
+# tzdata lets programs like the JVM map the mounted /etc/localtime to a zone name.
+# Classic CES sets no TZ variable, so without it they fall back to UTC/GMT.
 RUN apk update \
     && apk add --no-cache \
         bash \
         ca-certificates \
         jq \
         openssl \
+        tzdata \
         tar \
         zip unzip \
     && apk upgrade
