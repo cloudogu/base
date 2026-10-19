@@ -4,8 +4,8 @@ CHANGE_COUNTER=2
 IMAGE_TAG=$(ALPINE_VERSION)-$(CHANGE_COUNTER)
 IMAGE_NAME=registry.cloudogu.com/official/base
 IMAGE_NAME_PRERELEASE=registry.cloudogu.com/prerelease_official/base
-DOGUCTL_VERSION=0.16.0
-DOGUCTL_VER_SHA=93790bf7cb2fdc7ba782a6c5af5c43209467cf45798fa5a05e64d3979b2cb39c
+DOGUCTL_VERSION=0.17.0
+DOGUCTL_VER_SHA=f9e9a860fc5bcc808a6f11320026a4012b655846715144f08c015ec36e767d5d
 # renovate: datasource=github-tags depName=cloudogu/makefiles extractVersion=^v(?<version>.*)$
 MAKEFILES_VERSION=11.1.1
 
