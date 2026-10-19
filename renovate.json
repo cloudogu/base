@@ -1,9 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranchPatterns": [
-    "alpine3.22",
+    "alpine3.24",
     "alpine3.23",
-    "alpine3.24"
+    "alpine3.22"
   ],
   "ignorePaths": [
     "/build/**"
