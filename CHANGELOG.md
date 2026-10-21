@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Bump Alpine to v3.22.6
+- Bump doguctl to v0.17.0
 
 ## [3.22.5-4] - 2026-10-08
 ### Added
