@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Makefiles to v11.1.2
 - Update ces-build-lib to 6.0.0
 - Update dogu-build-lib to v4.1.0
+### Security
+- Update ca-certificates to 20261020 to distrust the compromised eMudhra roots "emSign ECC Root CA - G3", "emSign Root CA - C1" and "emSign ECC Root CA - C3"
 
 ## [3.22.5-4] - 2026-10-08
 ### Added
