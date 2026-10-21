@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Update Makefiles to v11.1.2
 - Update ces-build-lib to 6.0.0
+- Update dogu-build-lib to v4.1.0
 
 ## [3.24.2-3] - 2026-10-19
 ### Changed
