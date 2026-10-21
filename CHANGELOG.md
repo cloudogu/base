@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Bump Alpine to v3.23.6
 - Bump doguctl to v0.17.0
+- Update Makefiles to v11.1.2
 
 ## [3.23.5-4] - 2026-10-08
 ### Added
