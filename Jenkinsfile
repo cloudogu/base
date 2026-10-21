@@ -1,5 +1,5 @@
 #!groovy
-@Library(['github.com/cloudogu/ces-build-lib@4.2.0', 'github.com/cloudogu/dogu-build-lib@v3.2.0'])
+@Library(['github.com/cloudogu/ces-build-lib@6.0.0', 'github.com/cloudogu/dogu-build-lib@v3.2.0'])
 import com.cloudogu.ces.cesbuildlib.*
 import com.cloudogu.ces.dogubuildlib.*
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
