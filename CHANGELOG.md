@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump doguctl to v0.17.2 to fix CVE-2026-33747, CVE-2026-53488 and CVE-2026-78663
 - Update Makefiles to v11.2.0
 - Update ces-build-lib to 6.1.0
+- Update dogu-build-lib to v4.2.0
 
 ## [3.22.7-1] - 2026-10-22
 ### Changed
