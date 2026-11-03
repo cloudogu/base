@@ -5,7 +5,7 @@ import com.cloudogu.ces.dogubuildlib.*
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 
 timestamps {
-    node('sos') {
+    node('cpu2mem4') {
 
         properties([
                 // Keep only the last x builds to preserve space
