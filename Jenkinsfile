@@ -158,24 +158,7 @@ timestamps {
                 Utils.markStageSkippedForConditional(STAGE_NAME)
                 return
             }
-            try {
-                withCredentials([string(credentialsId: 'sos-sw-release-webhook-url', variable: 'webhookUrl')]) {
-                    def response = httpRequest(
-                            httpMode: 'POST',
-                            contentType: 'APPLICATION_JSON',
-                            requestBody: groovy.json.JsonOutput.toJson([text: """\
-                            *New Dogu Release*
-                            • Project: *<https://github.com/cloudogu/base|base-alpine>*
-                            • Version: *${imageVersion}*
-                            • <https://github.com/cloudogu/base/releases/tag/${imageVersion}|View Changelog>
-                            """.stripIndent()]),
-                            url: env.webhookUrl
-                    )
-                    echo "Notification sent to Google Chat: ${response.status} ${response.content}"
-                }
-            } catch (Exception notifyError) {
-                unstable("Failed to send notification to Google Chat: ${notifyError.getMessage()}")
-            }
+            new Webhook(this).notifyRelease(name: 'base-alpine', version: imageVersion)
         }
 
     }
