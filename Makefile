@@ -7,7 +7,7 @@ IMAGE_NAME_PRERELEASE=registry.cloudogu.com/prerelease_official/base
 DOGUCTL_VERSION=0.17.2
 DOGUCTL_VER_SHA=052b53952877355dae462e05949d09f5f989b8384ae8848b55d95a188601efef
 # renovate: datasource=github-tags depName=cloudogu/makefiles extractVersion=^v(?<version>.*)$
-MAKEFILES_VERSION=11.2.0
+MAKEFILES_VERSION=11.2.1
 
 default: build
 
