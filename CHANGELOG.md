@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Run the pipeline on `cpu2mem4` workers
+- Bump Alpine to v3.24.4
 
 ## [3.24.3-2] - 2026-11-03
 ### Changed
