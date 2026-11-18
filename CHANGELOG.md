@@ -5,11 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.24.4-1] - 2026-11-18
 ### Changed
 - Run the pipeline on `cpu2mem4` workers
 - Bump Alpine to v3.24.4
 - Update ces-build-lib to 6.1.1
 - Update dogu-build-lib to v5.0.0
+- Update Makefiles to v11.2.1
 
 ## [3.24.3-2] - 2026-11-03
 ### Changed
