@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Run the pipeline on `cpu2mem4` workers
 - Bump Alpine to v3.22.8
+- Update ces-build-lib to 6.1.1
 
 ## [3.22.7-2] - 2026-11-03
 ### Changed
